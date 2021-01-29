@@ -151,7 +151,7 @@ function init_state() {
     clear_init_fields();
     document.getElementById('btn1').style.visibility = 'hidden';
     document.getElementById('btn2').style.visibility = 'hidden';
-    document.getElementById('info').style.visibility = 'hidden';
+    document.getElementById('form_integrantes_explicacao').style.visibility = 'hidden';
     document.getElementById('form_estudante').style.visibility = 'hidden';
     document.getElementById('form_moradia').style.visibility = 'hidden';
     document.getElementById('form_integrantes').style.visibility = 'hidden';
@@ -206,10 +206,10 @@ function push_and_show_form_moradia() {
             doc_info_estudante.push("Anexar cópia da decisão judicial em favor da pensão e comprovantes que atestem o valor transferido.")
     
         } else if (pais_separados == "Meus pais são informalmente separados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Anexar declaração de recebimento de pensão informal, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
+            doc_info_estudante.push("Anexar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
     
         } else if (pais_separados == "Meus pais nunca foram formalmente casados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Anexar declaração de recebimento de pensão informal, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
+            doc_info_estudante.push("Anexar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
         }
     }
 
@@ -222,8 +222,13 @@ function push_and_show_form_moradia() {
     document.getElementById('form_moradia').style.visibility = 'visible';
 }
 
-function show_form_integrantes() {
+function show_form_integrantes_ex() {
     document.getElementById('form_moradia').remove();
+    document.getElementById('form_integrantes_explicacao').style.visibility = 'visible';
+}
+
+function show_form_integrantes() {
+    document.getElementById('form_integrantes_explicacao').remove()
     document.getElementById('form_integrantes').style.visibility = 'visible';
 }
 
@@ -256,17 +261,17 @@ function push_moradia() {
         tmp_array.push("Apresentar boleto de pagamento do financiamento.")
 
     } else if ( moradia_tipo == "Cedido" ) {
-        tmp_array.push("Apresentar declaração de residência em Imovel Cedido, conforme o edital, com a cópia do RG do cedente ou com reconhecimento da assinatura em cartório.")
+        tmp_array.push("Apresentar <a href='https://drive.google.com/file/d/17NKJRJh2pogTpn65cD5I4YqYbiTVeanW/view?usp=sharing' target='_blank'>declaração de residência em Imóvel Cedido</a>, conforme o edital, com a cópia do RG do cedente ou com reconhecimento da assinatura em cartório.")
 
     } else if ( moradia_tipo == "Alugado/república/pensionato" ) {
         tmp_array.push("Apresentar contrato de aluguel vigente em que conste o valor da locação.")
 
     } else if ( moradia_tipo == "Alugado informalmente" ) {
-        tmp_array.push("Apresentar declaração de aluguel informal, conforme orientações do edital. No caso do aluguel ser compartilhado com outros, indicar o valor da parcela paga na questão [18] do Cadastro Único.")
+        tmp_array.push("Apresentar <a href='https://drive.google.com/file/d/1ThKt4pauvj9XAm5NJSHtEF-Nl2TDzgo3/view?usp=sharing' target='_blank'>declaração de aluguel informal</a>, conforme orientações do edital. No caso do aluguel ser compartilhado com outros, indicar o valor da parcela paga na questão [18] do Cadastro Único.")
 
 
     } else if ( moradia_tipo == "De favor (morando com pessoas que não fazem parte do grupo familiar)" ) {
-        tmp_array.push("Apresentar declaração de residência de Moradia com Outros (“de favor”), conforme o edital, com a cópia do documento de identificação do declarante ou com firma reconhecida em cartório.")
+        tmp_array.push("Apresentar <a href='https://drive.google.com/file/d/1xhXYmt7RO_5_6JDO4h7VCQd-PDTpXE57/view?usp=sharing' target='_blank'>declaração de residência de Moradia com Outros</a> (“de favor”), conforme o edital, com a cópia do documento de identificação do declarante ou com firma reconhecida em cartório.")
 
     } else if ( moradia_tipo == "Assentamento" ) {
         tmp_array.push("Para assentados, apresentar comprovante/declaração da situação informada ou Contrato de Concessão de Uso (CCU) ou Título de Domínio (TD) ou Declaração de Aptidão ao Programa Nacional de Fortalecimento da Agricultura Familiar (DAP/PRONAF).")
@@ -331,7 +336,7 @@ function push_family_member() {
         print_info();
         clear_fields();
     } else {
-        alert("É necessário preencher todos os campos do formuláio")
+        alert("É necessário preencher todos os campos do formulário")
     }
 
     alert("Informação de integrante do grupo familiar inserida...")
@@ -378,7 +383,7 @@ function family_member_documentation(member) {
             doc_info_grupo_familiar[member.nome].push("Declaração do Imposto Territorial Rural - ITR + declaração de rendimento ou Declaração do Sindicato Rural da região sobre atividade exercida e renda mensal")
     
         } else if ( member.renda[i] == "Atividade produção agrícola/familiar/subsistência - indígenas, quilombolas e assentados" ) {
-            doc_info_grupo_familiar[member.nome].push("Declaração de atividade informal ou autônoma conforme modelo do edital + três últimos extratos bancários ou, na ausência de extrato por não possuir conta bancária, apresentar certidão negativa do banco central: https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS")
+            doc_info_grupo_familiar[member.nome].push("<a href='https://drive.google.com/file/d/1k0GBLwWeoMD6fqBYGZWGsGzwcywgSuim/view?usp=sharing' target='_blank'>Declaração de atividade informal ou autônoma</a> conforme modelo do edital + três últimos extratos bancários ou, na ausência de extrato por não possuir conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS' target='_blank'>certidão negativa do banco central</a>.")
     
         } else if ( member.renda[i] == "Trabalho formal" ) {
             doc_info_grupo_familiar[member.nome].push("Apresentar cópia dos três contracheques mais recentes.");
@@ -399,26 +404,29 @@ function family_member_documentation(member) {
             doc_info_grupo_familiar[member.nome].push("Informar, na questão 18 do formulário do Cadastro Único, as bolsas recebidas. Considerar, no ato do preenchimento dos valores das rendas dos integrantes da familia os valores dos programas: Auxílio Socioeconômico, Auxílio Creche e Bolsa Permanência.")
         
         } else if ( member.renda[i] == "PA informal" ) {
-            doc_info_grupo_familiar[member.nome].push("Anexar declaração de recebimento de pensão informal, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
+            doc_info_grupo_familiar[member.nome].push("Anexar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
         
         } else if ( member.renda[i] == "Assistência Social" ) {
             doc_info_grupo_familiar[member.nome].push("Apresentar comprovante mais recente, com o respectivo valor, referente ao recebimento de Benefício de Assistência Social (Bolsa Familia, BPC ou outros benefícios semelhantes...)")
             
         } else if ( member.renda[i] == "Autônomo" ) {
-            doc_info_grupo_familiar[member.nome].push("Declaração de atividade informal ou autônoma conforme modelo do edital + três últimos extratos bancários ou, na ausência de extrato por não possuir conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS'>certidão negativa do banco central</a>.")
+            doc_info_grupo_familiar[member.nome].push("<a href='https://drive.google.com/file/d/1k0GBLwWeoMD6fqBYGZWGsGzwcywgSuim/view?usp=sharing' target='_blank'>Declaração de atividade informal ou autônoma</a> conforme modelo do edital + três últimos extratos bancários ou, na ausência de extrato por não possuir conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS' target='_blank'>certidão negativa do banco central</a>.")
             
         } else if ( member.renda[i] == "Poupança" ) {
             doc_info_grupo_familiar[member.nome].push("Extrato bancário da poupança referente aos três últimos meses.")
+
+        } else if ( member.renda[i] == "INSS" ) {
+            doc_info_grupo_familiar[member.nome].push("Apresentar extrato do benefício do INSS.")
             
         } else if ( member.renda[i] == "Ajuda de terceiros" ) {
-            doc_info_grupo_familiar[member.nome].push("Declaração de renda referente ao recebimento de ajuda de terceiros (ver modelo no edital), redigida por quem repassa o recurso informando o valor + cópia do RG do declarante ou reconhecimento de firma do declarante em cartório")
+            doc_info_grupo_familiar[member.nome].push("<a href='https://drive.google.com/file/d/1OJJKkGYUwz6s-2FJQdfgfyADD5grJPdT/view?usp=sharing' target='_blank'>Declaração de renda referente ao recebimento de ajuda de terceiros</a> (ver modelo no edital), redigida por quem repassa o recurso informando o valor + cópia do RG do declarante ou reconhecimento de firma do declarante em cartório")
             
         } else if ( member.renda[i] == "Seguro-desemprego" ) {
             doc_info_grupo_familiar[member.nome].push("Espelho do recebimento do benefício com o valor do benefício a ser pago e em quantas parcelas")
             
         } else if ( member.renda[i] == "Sem renda" ) {
             if ( member.idade > 18) {
-                doc_info_grupo_familiar[member.nome].push("Extratos bancários dos 3 últimos meses + declaração de não possuir renda conforme modelo do edital. Na ausência de extrato por não possuir conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS'>certidão negativa do banco central</a>.")
+                doc_info_grupo_familiar[member.nome].push("Extratos bancários dos 3 últimos meses + <a href='https://drive.google.com/file/d/1Rlit43OMdjdx2-s-zVRU63kxqrCzN-1R/view?usp=sharing' target='_blank'>declaração de não possuir renda</a> conforme modelo do edital. Na ausência de extrato por não possuir conta bancária, apresentar <a href='https://www3.bcb.gov.br/nadaconsta/emitirCertidaoCCS' target='_blank'>certidão negativa do banco central</a>.")
             }
             
         }
@@ -616,7 +624,7 @@ function load_family_members() {
         output += `<tr style='padding: 10px;'><td>${p.nome}</td><td>${p.dn}</td><td>${p.idade}</td><td>${p.renda}</td><td>${p.saude}</td></tr>`
     };
     output += "</table><br>";
-    output += make_score(family_members).toString();
+    //output += make_score(family_members).toString();
     return output
 };
 

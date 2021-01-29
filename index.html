@@ -3,10 +3,9 @@
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     </head>
     <body style="font-size: larger; background-color: beige"; onload=init_state();>
-        <div style="position: absolute; width: 50%; margin-left: 45%; background-color: beige; margin-top: -15px;" id="info"></div>
         <div style="margin-left: 5%; margin-right: 5%;">
             <h1>Simulador para indicação inicial de documentos do Estudo Social</h1>
-            <div id="intro">
+            <div  id="intro">
                 <p style="color: red">Esta ferramenta tem por finalidade auxiliar os estudantes a identificar e reunir as documentações requeridas para avaliação socioeconômica.</p>
                 
                 <p style="color: red"><b>Estas orientações têm caráter preliminar e não substituem a orientação de um profissional</b>, portanto, ainda que o estudante tenha reunido todas as documentações sugeridas aqui, outros documentos poderão ser solicitados a partir da análise das informações apresentadas no formulário do Cadastro Único do SIGAA ou no conteúdo das próprias documentações apresentadas.</p>
@@ -83,62 +82,76 @@
                     <input type="radio" class="tipo_imovel" name="tipo_imovel" id="tipo_imovel_11">Outra situação de moradia<br><br>
 
 
-                <button style="font-size: large;" onclick=push_moradia()>Inserir</button> <button id="btn1" style="font-size: large;" onclick=show_form_integrantes()>Prosseguir</button>
+                <button style="font-size: large;" onclick=push_moradia()>Inserir</button> <button id="btn1" style="font-size: large;" onclick=show_form_integrantes_ex()>Prosseguir</button>
             </div>
     
+            <div id="form_integrantes_explicacao">
+                <div>
+                    <p style="color: red">A partir deste ponto você deverá informar os dados sobre todos os integrantes do grupo familiar, <b>inclusive você</b>.</p>
+
+                    <p style="color: red">O grupo familiar é a rede primária do estudante, tratam-se das primeiras pessoas as quais o/a estudante recorre ante as intercorrências da vida social. Assim, é entendido como a unidade composta por uma ou mais pessoas, eventualmente ampliada por outras pessoas que contribuam para o rendimento ou tenham as despesas atendidas por aquela unidade familiar, todas moradoras em um mesmo domicílio (incluindo o/a estudante que sendo de outro estado reside em Brasília em razão dos estudos), desde que comprovada mediante documentação.</p>
+                    
+                    <p style="color: red">Nas situações em que o estudante mora “de favor” entende-se que, em geral, a família que o acolhe não é seu grupo familiar. Da mesma forma, parentes que não compõem o grupo familiar do estudante mas que residem de favor em sua casa, não deverão ser considerados na composição do grupo familiar para efeito do estudo socioeconômico, salvo situações específicas: tempo em que o estudante ou o parente reside no domicílio, dependência econômica, dentre outras.</p>
+                    
+                    <p style="color: red">A composição do grupo familiar e a situação particular de cada um de seus integrantes é fundamental para definir quais documentos serão necessários para o correto encaminhamento do Estudo Social. Portanto, quaisquer dúvidas em relação à sua composição devem ser esclarecida pelo estudante por meio de entrevista com Assistente Social. A depender da complexidade da situação, esta poderá ser discutidas em comissões colegiadas de Assistentes Sociais. Em face da pandemia de COVID-19, o agendamento da entrevista (atendimento virtual) poderá ser feito mediante solicitação no endereço de email <b>sps@unb.br</b></p>
+
+                    <p style="color: red">Preencha as informações dos campos e clique em <b>inserir</b> para registrar estes dados na memória.</p>
+
+                    <p style="color: red">Você poderá incluir tantos integrantes quanto necessário.</p>
+
+                    <p style="color: red">Clique em <b>prosseguir</b> para concluir a simulação.</p>
+                </div>
+                <button id="btn1_ex" style="font-size: large;" onclick=show_form_integrantes()>Prosseguir</button>
+            </div>
+
             <div id="form_integrantes">
-                <p style="color: red">Aqui você deve informar os dados sobre os integrantes do grupo familiar.</p>
+                <div style="position: absolute; width: 50%; margin-left: 45%; background-color: beige; margin-top: -15px;" id="info"></div>
+                <div>
+                    <h3>Identificação:</h3>
+                    <input type="text" name="nome" id="nome" style="width: 30%;" placeholder="Nome do integrante familiar"><br>
+                    <input type="text" name="dn" id="dn" style="width: 30%;" maxlength="10" placeholder="Data de nascimento: DD/MM/AAAA" onkeyup=dt_mask()><br>
+                    
+                    <h3>Natureza de renda:</h3>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_00">Trabalho formal, servidor público efetivo<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_01">Aposentadoria<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_02">Rendimentos: aluguel, participação em lucros<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_03">Servidor público temporário/comissão<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_04">Microempreendedor<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_21">Atividade produção agrícola<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_22">Atividade produção agrícola/familiar/subsistência - indígenas, quilombolas e assentados<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_05">Trabalho formal, setor privado<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_06">Pensão alimentícia formal<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_07">Pensão por morte, proveniente de pai/mãe<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_08">Pensão por morte, proveniente de cônjuge<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_09">Benefício do INSS<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_10">Estágio remunerado ou jovem aprendiz<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_11">Bolsa Acadêmica (PIBIC, PIBID, PIBEX…)<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_12">Bolsa de pós-graduação<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_13">Bolsa da Assistência Estudantil (Auxílio Moradia, Auxílio Socioeconômico…)<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_14">Pensão alimentícia informal<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_15">Benefício da Assistência Social<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_16">Trabalho autônomo ou informal<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_17">Poupança/Economias pessoais<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_18">Seguro-desemprego<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_20">Ajuda de terceiros (pessoas de fora do grupo familiar)<br>
+                    <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_19">Não possui renda proveniente de trabalho formal ou informal<br>
 
-                <p style="color: red">Preencha as informações dos campos e clique em <b>inserir</b> para registrar estes dados na memória.</p>
+                    <h3>Declarara imposto de renda IRPF:</h3>
+                    <input type="radio" class="irpf" name="irpf" id="irpf_00">Não<br>
+                    <input type="radio" class="irpf" name="irpf" id="irpf_01">Sim<br>
+                    
 
-                <p style="color: red">Você poderá incluir tantos integrantes quanto necessário.</p>
-
-                <p style="color: red">Clique em <b>prosseguir</b> para concluir a simulação.</p>
-
-
-                <h3>Identificação:</h3>
-                <input type="text" name="nome" id="nome" style="width: 30%;" placeholder="Nome do integrante familiar"><br>
-                <input type="text" name="dn" id="dn" style="width: 30%;" maxlength="10" placeholder="Data de nascimento: DD/MM/AAAA" onkeyup=dt_mask()><br>
-                
-                <h3>Natureza de renda:</h3>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_00">Trabalho formal, servidor público efetivo<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_01">Aposentadoria<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_02">Rendimentos: aluguel, participação em lucros<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_03">Servidor público temporário/comissão<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_04">Microempreendedor<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_21">Atividade produção agrícola<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_22">Atividade produção agrícola/familiar/subsistência - indígenas, quilombolas e assentados<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_05">Trabalho formal, setor privado<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_06">Pensão alimentícia formal<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_07">Pensão por morte, proveniente de pai/mãe<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_08">Pensão por morte, proveniente de cônjuge<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_09">Benefício do INSS<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_10">Estágio remunerado ou jovem aprendiz<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_11">Bolsa Acadêmica (PIBIC, PIBID, PIBEX…)<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_12">Bolsa de pós-graduação<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_13">Bolsa da Assistência Estudantil (Auxílio Moradia, Auxílio Socioeconômico…)<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_14">Pensão alimentícia informal<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_15">Benefício da Assistência Social<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_16">Trabalho autônomo ou informal<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_17">Poupança/Economias pessoais<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_18">Seguro-desemprego<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_20">Ajuda de terceiros (pessoas de fora do grupo familiar)<br>
-                <input type="checkbox" class="renda" name="tipo_vinculo" id="tipo_vinculo_19">Não possui renda proveniente de trabalho formal ou informal<br>
-
-                <h3>Declarara imposto de renda IRPF:</h3>
-                <input type="radio" class="irpf" name="irpf" id="irpf_00">Não<br>
-                <input type="radio" class="irpf" name="irpf" id="irpf_01">Sim<br>
-                
-
-                <h3>Situação de saúde:</h3>
-                <input type="radio" class="saude" name="saude" id="saude_00">Sem agravo<br>
-                <input type="radio" class="saude" name="saude" id="saude_01">Doença crônica<br>
-                <input type="radio" class="saude" name="saude" id="saude_02">Doença grave<br>
-                <input type="radio" class="saude" name="saude" id="saude_03">Deficiência<br><br>
-                
-                <button style="font-size: large;" onclick=push_family_member()>Inserir</button> <button id="btn2" style="font-size: large;" onclick=show_simulation_result()>Prosseguir</button>
+                    <h3>Situação de saúde:</h3>
+                    <input type="radio" class="saude" name="saude" id="saude_00">Sem agravo<br>
+                    <input type="radio" class="saude" name="saude" id="saude_01">Doença crônica<br>
+                    <input type="radio" class="saude" name="saude" id="saude_02">Doença grave<br>
+                    <input type="radio" class="saude" name="saude" id="saude_03">Deficiência<br><br>
+                    
+                    <button style="font-size: large;" onclick=push_family_member()>Inserir</button> <button id="btn2" style="font-size: large;" onclick=show_simulation_result()>Prosseguir</button>
+                </div>
 
             </div>
+            
             
         <div id="simulation_result" style="margin-right: 5%;">
             <h2>Resultado da simulação</h2>
