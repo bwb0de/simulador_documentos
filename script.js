@@ -15,9 +15,10 @@ VETOR_ARBITRARIO = 0.5
 observacao_cpf = false;
 observacao_pa = false;
 
+
 translator_tipo_renda = {
-    tipo_vinculo_00: [22, "Servidor efetivo"],
-    tipo_vinculo_01: [22, "Aposentado"],
+    tipo_vinculo_00: [22, ServidorEfetivo],
+    tipo_vinculo_01: [22, Aposentado],
     tipo_vinculo_02: [22, "Rendimentos"],
     tipo_vinculo_03: [14.08, "Servidor temporário/comissão"],
     tipo_vinculo_04: [14.08, "Microempreendedor"],
