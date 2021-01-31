@@ -1,7 +1,9 @@
-import { MAX_SAUDE, MID_SAUDE, MIN_SAUDE, VETOR_ARBITRARIO} from "./constants.js";
-import { translator_tipo_renda, translator_saude, translator_estrangeiro, translator_pessoa_com_deficiencia, translator_irpf, translator_pais_separados, translator_mais_de_24, translator_pa, translator_pais_falecidos, translator_tipo_moradia, translator_docs } from "./translators.js";
-import { exaust_generator_list, resultant_vector, cosseno_vector, media } from "./tools.js";
-import { clear_fields, clear_init_fields, clear_moradia_fields, check_form } from "./app-form-tools.js"
+import { MAX_SAUDE, MID_SAUDE, MIN_SAUDE, VETOR_ARBITRARIO} from "./application/static_data/basic_values.js";
+import { translator_tipo_renda, translator_saude, translator_estrangeiro, translator_pessoa_com_deficiencia, translator_irpf, translator_pais_separados, translator_mais_de_24, translator_pa, translator_pais_falecidos, translator_tipo_moradia, translator_docs } from "./application/static_data/translators.js";
+import { resultant_vector, cosseno_vector, media } from "./resources/math-tools.js";
+import { exaust_generator_list } from "./resources/programing-tools.js";
+import { clear_fields, clear_init_fields, clear_moradia_fields, check_form } from "./application/handlers/forms.js";
+import { check_foreign, check_deficient, check_alimony, check_if_any_deceased_parent } from "./application/rules/app-forms.js"
 
 family_members = [];
 
@@ -39,50 +41,10 @@ function push_and_show_form_moradia() {
     pais_falecidos = get_selected_op('pais_falecidos', translator_pais_falecidos).split(';')[0];
     pensao_alimenticia = get_selected_op('pa', translator_pa).split(';')[0];
 
-
-    //Estrangeiro
-    if (estrangeiro == "Sim, estrangeiro refugiado" ) {
-        doc_info_estudante.push("Relatório do banco o central relativo às operações de câmbio e extratos bancários de todas as contas dos últimos 6 meses.")
-    
-    } else if (estrangeiro == "Sim, estrangeiro não-refugiado") {
-        doc_info_estudante.push("Relatório do banco o central relativo às operações de câmbio e extratos bancários de todas as contas dos últimos 6 meses.")
-        doc_info_estudante.push("Declaração da embaixada informando se há ou não recebimento de bolsas/auxílios financeiros.")
-    }
-
-    //Deficiente
-    if (com_deficiencia == "Pessoa com deficiência" ) {
-        doc_info_estudante.push("Anexar documento oficial de pessoa com deficiência ou relatório/laudo médico com CID.")
-    }
-
-    //Pensionista
-    if (pensao_alimenticia == "Não" && pais_falecidos == "Não" ) {
-        if (pais_separados == "Meus pais são formalmente separados" && mais_de_24 == "Não" ) {
-            doc_info_estudante.push("Anexar comprovante de justificativa do não recebimento de pensão alimentícia... [0] se o pedido de pensão estiver em tramitação, comprovante de existência do processo com identificação das partes; [2] se a pensão tiver sido interrompida por falta de pagamento, anexe o comprovante da decisão favorável a concessão da pensão e os extratos bancários que demonstrem claramente a interrupção do repasse do recurso.")
-    
-        } else if (pais_separados == "Meus pais são informalmente separados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Apresentar declaração de não recebimento de pensão, ver modelo nos anexos do edital.")
-    
-        } else if (pais_separados == "Meus pais nunca foram formalmente casados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Apresentar declaração de não recebimento de pensão, ver modelo nos anexos do edital.")
-            doc_info_estudante.push("Incluir na questão número [18] do Cadastro Único (SIGAA) os motivos de não ter solicitado pensão formal.")
-        }
-
-    } else if (pensao_alimenticia == "Sim") {
-        if (pais_separados == "Meus pais são formalmente separados" && mais_de_24 == "Não" ) {
-            doc_info_estudante.push("Anexar cópia da decisão judicial em favor da pensão e comprovantes que atestem o valor transferido.")
-    
-        } else if (pais_separados == "Meus pais são informalmente separados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Anexar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
-    
-        } else if (pais_separados == "Meus pais nunca foram formalmente casados" && mais_de_24 == "Não") {
-            doc_info_estudante.push("Anexar <a href='https://drive.google.com/file/d/1e_MVjxtRXAKDdAcr82hXT9IzMK20oYXT/view?usp=sharing' target='_blank'>declaração de recebimento de pensão informal</a>, conforme o modelo do edital, com comprovantes que atestem o valor transferido.")
-        }
-    }
-
-    //Pais falecidos
-    if (pais_falecidos == "Sim" ) {
-        doc_info_estudante.push("Anexar certidão de óbito do genitor falecido.")
-    }
+    doc_info_estudante = check_foreign(doc_info_estudante, estrangeiro);
+    doc_info_estudante = check_deficient(doc_info_estudante, com_deficiencia);
+    doc_info_estudante = check_alimony(doc_info_estudante, pensao_alimenticia, pais_separados, pais_falecidos, mais_de_24);
+    doc_info_estudante = check_if_any_deceased_parent(doc_info_estudante, pais_falecidos);
     
     document.getElementById('form_estudante').remove();
     document.getElementById('form_moradia').style.visibility = 'visible';
