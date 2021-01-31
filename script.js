@@ -1,151 +1,17 @@
+import { MAX_SAUDE, MID_SAUDE, MIN_SAUDE, VETOR_ARBITRARIO} from "./constants.js";
+import { translator_tipo_renda, translator_saude, translator_estrangeiro, translator_pessoa_com_deficiencia, translator_irpf, translator_pais_separados, translator_mais_de_24, translator_pa, translator_pais_falecidos, translator_tipo_moradia, translator_docs } from "./translators.js";
+import { exaust_generator_list, resultant_vector, cosseno_vector, media } from "./tools.js";
+import { clear_fields, clear_init_fields, clear_moradia_fields, check_form } from "./app-form-tools.js"
+
 family_members = [];
 
 doc_info_estudante = []
 doc_info_moradia = {}
 doc_info_grupo_familiar = {}
 
-MAX_SAUDE = 13
-MID_SAUDE = 8
-MIN_SAUDE = 3
-
-MAX_RENDA = 22
-
-VETOR_ARBITRARIO = 0.5
-
 observacao_cpf = false;
 observacao_pa = false;
 
-
-translator_tipo_renda = {
-    tipo_vinculo_00: [22, ServidorEfetivo],
-    tipo_vinculo_01: [22, Aposentado],
-    tipo_vinculo_02: [22, "Rendimentos"],
-    tipo_vinculo_03: [14.08, "Servidor temporário/comissão"],
-    tipo_vinculo_04: [14.08, "Microempreendedor"],
-    tipo_vinculo_21: [14.08, "Atividade produção agrícola"],
-    tipo_vinculo_22: [4.4, "Atividade produção agrícola/familiar/subsistência - indígenas, quilombolas e assentados"],
-    tipo_vinculo_05: [14.08, "Trabalho formal"],
-    tipo_vinculo_06: [14.08, "PA formal"],
-    tipo_vinculo_07: [14.08, "Pensão por morte"],
-    tipo_vinculo_08: [14.08, "Pensão por morte"],
-    tipo_vinculo_09: [9.68, "INSS"],
-    tipo_vinculo_10: [9.68, "Estágio"],
-    tipo_vinculo_11: [9.68, "Bolsa Acadêmica"],
-    tipo_vinculo_12: [9.68, "Bolsa pós-graduação"],
-    tipo_vinculo_13: [9.68, "Bolsa PNAES"],
-    tipo_vinculo_14: [2.64, "PA informal"],
-    tipo_vinculo_15: [4.4, "Assistência Social"],
-    tipo_vinculo_16: [4.4, "Autônomo"],
-    tipo_vinculo_17: [2.64, "Poupança"],
-    tipo_vinculo_18: [2.64, "Seguro-desemprego"],
-    tipo_vinculo_20: [2.64, "Ajuda de terceiros"],
-    tipo_vinculo_19: [0, "Sem renda"]
-}
-
-
-translator_saude = {
-    saude_00: [MAX_SAUDE, "Sem agravo"],
-    saude_01: [MID_SAUDE, "Doença crônica"],
-    saude_02: [MIN_SAUDE, "Doença grave"],
-    saude_03: [MIN_SAUDE, "Deficiência"]
-}
-
-translator_estrangeiro = {
-    estrangeiro_00: [0, "Não"],
-    estrangeiro_01: [0, "Sim, estrangeiro refugiado"],
-    estrangeiro_02: [0, "Sim, estrangeiro não-refugiado"]
-}
-
-translator_pessoa_com_deficiencia = {
-    com_deficiencia_00: [0, "Sem deficiência"],
-    com_deficiencia_01: [0, "Pessoa com deficiência"]
-}
-
-translator_irpf = {
-    irpf_00: [0, "Não"],
-    irpf_01: [0, "Sim"]
-}
-
-translator_pais_separados = {
-    pais_separados_00: [0, "Meus pais não são separados"],
-    pais_separados_01: [0, "Meus pais são formalmente separados"],
-    pais_separados_02: [0, "Meus pais são informalmente separados"],
-    pais_separados_03: [0, "Meus pais nunca foram formalmente casados"]
-}
-
-translator_mais_de_24 = {
-    mais_de_24_00: [0, "Não"],
-    mais_de_24_01: [0, "Sim"]
-}
-
-translator_pa = {
-    pa_00: [0, "Não"],
-    pa_01: [0, "Sim"]
-}
-
-
-translator_pais_falecidos = {
-    pais_falecidos_00: [0, "Não"],
-    pais_falecidos_01: [0, "Sim"]
-}
-
-
-translator_tipo_moradia = {
-    tipo_imovel_00: [0, "Próprio quitado"],
-    tipo_imovel_01: [0, "Casa do Estudante Universitário"],
-    tipo_imovel_02: [0, "Própria em aquisição"],
-    tipo_imovel_03: [0, "Cedido"],
-    tipo_imovel_04: [0, "Alugado/república/pensionato"],
-    tipo_imovel_05: [0, "De favor (morando com pessoas que não fazem parte do grupo familiar)"],
-    tipo_imovel_06: [0, "Assentamento"],
-    tipo_imovel_07: [0, "Comunidade quilombola"],
-    tipo_imovel_12: [0, "Aldeia indígena"],
-    tipo_imovel_08: [0, "Ocupação irregular"],
-    tipo_imovel_09: [0, "Moradia com risco de remoção sub judice"],
-    tipo_imovel_10: [0, "Sem moradia, em situação de rua"],
-    tipo_imovel_11: [0, "Outra situação de moradia"]
-}
-
-
-translator_docs = {
-    doc00: "Se estrangeiro, anexe relatório do banco o central relativo às operações de câmbio e extratos bancários de todas as contas dos últimos 6 meses.",
-    doc01: "Se estrangeiro e não-refugiado, anexe a declaração da embaixada informando se há ou não recebimento de bolsas/auxílios financeiros.",
-    doc02: "CPF",
-    doc03: "RG, frente e verso, ou certidão de nascimento, no caso de crianças/adolescentes ",
-    doc04: "Carteira de trabalho ou declaração de não possuí-la, conforme orientações do edital (obrigatório para pessoas com mais de 18 anos)",
-    doc05: "Documento de comprovação de existência de renda (ver o tipo exigido no edital, conforme a natureza do vinculo empregatício) ou declaração de ausência de renda, conforme modelo do edital.",
-    doc06: "Declaração completa de imposto de renda, com recibo de entrega, ou declaração emitira pelo site da Receita Federal indicando a inesistência deste documento (obrigatório para maiores de 18 anos)",
-    doc07: "Comprovação de existência ou inexistência de pensão alimentícia, caso existam crianças/adolescentes no grupo familiar em que os pais sejam separados",
-    doc08: "Certificado de conclusão de curso de graduação ou tecnólogo",
-    doc09: "Histórico de conclusão do ensino médio (apenas para o estudante e somente se estiver concorrendo ao Programa de Moradia Estudantil) ◦ Observação: para avaliação de proveniência do estudante...",
-    doc10: "Comprovantes de residência (água ou luz) e situção do imóvel (contrato de aluguel, IPTU ou demais documentos que comprovem a situação de moradia declarada no questionário",
-    doc11: "Relatório médico ou laudo com CID, necessário àquelas pessoas que possuam agravos de saúde ou deficiência",
-    doc12: "Certidão de nascimento do(a) filho(a)",
-    doc13: "Certidão de óbito no caso de pai/mãe/mantenedor do grupo familiar falecido;",
-    doc14: "Documentos complementares solicitados pelo/a assistente social"
-}
-
-
-
-function check_form() {
-    //Verifica se todas questões foram preechidas
-    if ( document.getElementById("dn").value == "" ) {
-        return 0;
-    
-    } else if ( document.getElementById("nome").value == "" ) {
-        return 0;
-    } 
-    
-    if ( check_if_checked("renda") == 0 ) {
-        return 0;
-    }
-    
-    if ( check_if_checked("saude") == 0 ) {
-        return 0;
-    }
-    
-    return 1
-}
 
 function init_state() {
     document.getElementById('intro').style.visibility = 'visible';
@@ -163,7 +29,6 @@ function show_form_estudante() {
     document.getElementById('intro').remove();
     document.getElementById('form_estudante').style.visibility = 'visible';
 }
-
 
 
 function push_and_show_form_moradia() {
@@ -443,25 +308,13 @@ function family_member_documentation(member) {
 }
 
 
-function resultant_vector(arr) {
-    x = 0;
-    y = 0;
-
-    for ( idx in arr ) {
-        x += arr[idx][0];
-        y += arr[idx][1];
-    }
-
-    return [x,y]
-};
-
-
 function get_global_saude_vector() {
 
 };
 
 
 function calculate_dgtx(family_members) {
+    //Valor da magnitude do vertor da taxa de doença grave * 3
     numerador = 0;
     denominador = 0;
     
@@ -479,6 +332,7 @@ function calculate_dgtx(family_members) {
 
 
 function calculate_dctx(family_members) {
+    //Valor da magnitude do vertor da taxa de doença crônica * 2
     numerador = 0;
     denominador = 0;
     
@@ -496,6 +350,7 @@ function calculate_dctx(family_members) {
 
 
 function calculate_tx_com_renda(family_members) {
+    //Valor da magnitude do vertor da taxa de pessoas com renda
     numerador = 0;
     denominador = 0;
     
@@ -515,8 +370,8 @@ function calculate_tx_com_renda(family_members) {
 
 function get_renda_vector(renda_score, idade, ) {
     // renda_vector = [x,y]
-    // estabilidade_de_renda => y
-    // dependencia => x
+    //  · estabilidade_de_renda => y
+    //  · dependencia => x
 
     x = dependencia_by_age_group(idade);
 
@@ -539,8 +394,8 @@ function get_renda_vector(renda_score, idade, ) {
 
 function get_saude_vector(saude_score, idade) {
     // saude_vector = [x,y]
-    // autonomia => y
-    // risco do agravo => x
+    //  · autonomia => y
+    //  · risco do agravo => x
 
     y = autonomia_by_age_group(idade);
     
@@ -563,16 +418,6 @@ function get_saude_vector(saude_score, idade) {
     }
     
     return [x,y];
-};
-
-
-function vector_size(vector) {
-    return Math.sqrt((vector[0] * vector[0]) + (vector[1] * vector[1]));
-};
-
-
-function cosseno_vector(vector) {
-    return vector[0] / vector_size(vector);
 };
 
 
@@ -693,48 +538,6 @@ function populate_result() {
 
 
 
-function clear_fields() {
-    document.getElementById('nome').value = "";
-    document.getElementById('dn').value = "";
-    clear_radio_selection('irpf');
-    clear_radio_selection('renda');
-    clear_radio_selection('saude');
-
-};
-
-function clear_init_fields() {
-    clear_radio_selection('entrangeiro');
-    clear_radio_selection('com_deficiencia');
-    clear_radio_selection('pais_separados');
-    clear_radio_selection('mais_de_24');
-    clear_radio_selection('pa');
-    clear_radio_selection('pais_falecidos');
-};
-
-
-function clear_moradia_fields() {
-    document.getElementById('moradia_id').value = "";
-    clear_radio_selection('tipo_imovel');
-};
-
-
-function clear_radio_selection(class_name) {
-    grupo_ops = document.getElementsByClassName(class_name)
-    for ( index in grupo_ops ) {
-        grupo_ops[index].checked = false;
-    };
-};
-
-
-function check_if_checked(class_name) {
-    grupo_ops = document.getElementsByClassName(class_name);
-    for ( index in grupo_ops ) {
-        if ( grupo_ops[index].checked == true ) {
-            return 1;
-        }
-    };
-}
-
 function get_selected_op(class_name, translator, output_score=false) {
     grupo_ops = document.getElementsByClassName(class_name);
     selected_ops = [];
@@ -764,6 +567,7 @@ function get_selected_op(class_name, translator, output_score=false) {
 
 
         //Verificação de valores cruzados
+        // mudar para binário...
         if ( switch_val == 1000 ) {
             scores.push(13)
         } else if ( switch_val == 100 ) {
@@ -795,45 +599,12 @@ function get_selected_op(class_name, translator, output_score=false) {
 };
 
 
-function calculate_age(dn) {
-    //requires moment JS from: https://momentjs.com/
-    dia = dn.split('/')[0]; 
-    mes = dn.split('/')[1]; 
-    ano = dn.split('/')[2];
-
-    data = `${ano}-${mes}-${dia}`;
-
-    const now = moment(new Date());
-    const past = moment(data);
-    const duration = moment.duration(now.diff(past));
-    
-    return parseInt(duration.asYears());
-};
-
-
-function media(arr) {
-    denominador = arr.length
-    soma = somar(arr)
-    return soma / denominador
-
-}
-
 
 function saude_denominator(arr) {
     output = 0;
     cronic_term = 0;
     grave_term = 0;
 }
-
-
-function somar(arr) {
-    output = 0
-    for ( index in arr ) {
-        output += arr[index]
-    };
-
-    return output
-};
 
 
 function make_score(family_members) {

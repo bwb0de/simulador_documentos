@@ -1,0 +1,12 @@
+const MAX_SAUDE = 13
+const MID_SAUDE = 8
+const MIN_SAUDE = 3
+
+const MAX_RENDA = 22
+
+const W = 1100
+
+const ARBITRARY_VECTOR = 0.5
+
+
+export {MAX_SAUDE, MID_SAUDE, MIN_SAUDE, MAX_RENDA, W, ARBITRARY_VECTOR}

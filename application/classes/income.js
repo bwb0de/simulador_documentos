@@ -1,12 +1,14 @@
-class PerfilRenda {
+import { make_generator } from '../../resources/programing-tools.js';
+
+class IncomeBlueprint {
     constructor(){ this.doc = []}
-    print_info(){
-        this.doc.forEach(element => { console.log("<li>"+element)});
+    return_docs(){
+        return make_generator(this.doc);
     }
 }
 
 
-class ServidorEfetivo extends PerfilRenda {
+class ServidorEfetivo extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Servidor efetivo";
@@ -14,7 +16,7 @@ class ServidorEfetivo extends PerfilRenda {
     }
 }
 
-class Aposentado extends PerfilRenda {
+class Aposentado extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Aposentado";
@@ -22,7 +24,7 @@ class Aposentado extends PerfilRenda {
     }
 }
 
-class Rentista extends PerfilRenda {
+class Rentista extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Rendimentos";
@@ -30,7 +32,7 @@ class Rentista extends PerfilRenda {
     }
 }
 
-class ServidorTemporario extends PerfilRenda {
+class ServidorTemporario extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Servidor temporário/comissão";
@@ -38,7 +40,7 @@ class ServidorTemporario extends PerfilRenda {
     }
 }
 
-class Microempreendedor extends PerfilRenda {
+class Microempreendedor extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Microempreendedor";
@@ -46,7 +48,7 @@ class Microempreendedor extends PerfilRenda {
     }
 }
 
-class ProdutorRural extends PerfilRenda {
+class ProdutorRural extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Atividade produção agrícola";
@@ -54,7 +56,7 @@ class ProdutorRural extends PerfilRenda {
     }
 }
 
-class AgricultorFamiliar extends PerfilRenda {
+class AgricultorFamiliar extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Atividade produção agrícola/familiar/subsistência - indígenas, quilombolas e assentados";
@@ -62,7 +64,7 @@ class AgricultorFamiliar extends PerfilRenda {
     }
 }
 
-class TrabalhadorFormal extends PerfilRenda {
+class TrabalhadorFormal extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Trabalho formal";
@@ -70,7 +72,7 @@ class TrabalhadorFormal extends PerfilRenda {
     }
 }
 
-class PensaoAlimenticiaFormal extends PerfilRenda {
+class PensaoAlimenticiaFormal extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "PA formal";
@@ -78,7 +80,7 @@ class PensaoAlimenticiaFormal extends PerfilRenda {
     }
 }
 
-class Estagio extends PerfilRenda {
+class Estagio extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Estágio";
@@ -86,7 +88,7 @@ class Estagio extends PerfilRenda {
     }
 }
 
-class BolsaAcademica extends PerfilRenda {
+class BolsaAcademica extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Bolsa Acadêmica";
@@ -94,7 +96,7 @@ class BolsaAcademica extends PerfilRenda {
     }
 }
 
-class BolsaAcademicaPOS extends PerfilRenda {
+class BolsaAcademicaPOS extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Bolsa pós-graduação";
@@ -102,7 +104,7 @@ class BolsaAcademicaPOS extends PerfilRenda {
     }
 }
 
-class BolsaAssistenciaEstudantil extends PerfilRenda {
+class BolsaAssistenciaEstudantil extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Bolsa PNAES";
@@ -110,7 +112,7 @@ class BolsaAssistenciaEstudantil extends PerfilRenda {
     }
 }
 
-class PensaoAlimenticiaInformal extends PerfilRenda {
+class PensaoAlimenticiaInformal extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "PA informal";
@@ -118,7 +120,7 @@ class PensaoAlimenticiaInformal extends PerfilRenda {
     }
 }
 
-class AuxilioAssistenciaSocial extends PerfilRenda {
+class AuxilioAssistenciaSocial extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Assistência Social";
@@ -126,7 +128,7 @@ class AuxilioAssistenciaSocial extends PerfilRenda {
     }
 }
 
-class TrabalhadorInformal extends PerfilRenda {
+class TrabalhadorInformal extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Autônomo";
@@ -134,7 +136,7 @@ class TrabalhadorInformal extends PerfilRenda {
     }
 }
 
-class Poupanca extends PerfilRenda {
+class Poupanca extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Poupança";
@@ -142,7 +144,7 @@ class Poupanca extends PerfilRenda {
     }
 }
 
-class INSS extends PerfilRenda {
+class INSS extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "INSS";
@@ -150,7 +152,7 @@ class INSS extends PerfilRenda {
     }
 }
 
-class AjudaDeTerceiros extends PerfilRenda {
+class AjudaDeTerceiros extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Ajuda de terceiros";
@@ -158,7 +160,7 @@ class AjudaDeTerceiros extends PerfilRenda {
     }
 }
 
-class SeguroDesemprego extends PerfilRenda {
+class SeguroDesemprego extends IncomeBlueprint {
     constructor(){       
         super();
         this.perfil = "Seguro-desemprego";
@@ -166,7 +168,7 @@ class SeguroDesemprego extends PerfilRenda {
     }
 }
 
-class SemRendaLaboral extends PerfilRenda {
+class SemRendaLaboral extends IncomeBlueprint {
     constructor(idade){       
         super();
         this.perfil = "Sem renda";
@@ -180,4 +182,4 @@ class SemRendaLaboral extends PerfilRenda {
     }
 }
 
-
+export { ServidorEfetivo, Aposentado, Rentista, ServidorTemporario, Microempreendedor, ProdutorRural, AgricultorFamiliar, TrabalhadorFormal, PensaoAlimenticiaFormal, Estagio, BolsaAcademica, BolsaAcademicaPOS, BolsaAssistenciaEstudantil, PensaoAlimenticiaInformal, AuxilioAssistenciaSocial, TrabalhadorInformal, Poupanca, INSS, AjudaDeTerceiros, SeguroDesemprego, SemRendaLaboral }

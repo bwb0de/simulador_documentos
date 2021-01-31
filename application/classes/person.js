@@ -1,3 +1,6 @@
+import { make_generator } from '../../resources/programing-tools.js';
+
+/*
 class Pessoa {
     constructor(nome, dn, perfil_renda, perfil_saude) {
         this.nome = nome;
@@ -14,3 +17,4 @@ class Pessoa {
         console.log("</ul>")
     }
 }
+*/

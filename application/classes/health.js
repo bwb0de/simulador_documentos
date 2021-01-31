@@ -1,5 +1,6 @@
+import { make_generator } from '../../resources/programing-tools.js';
 
-class PerfilSaude {
+class HealthStatus {
     constructor() {}
 
     print_info_card(doc_list){
@@ -7,7 +8,7 @@ class PerfilSaude {
     }
 }
 
-class Saudavel extends PerfilSaude {
+class Saudavel extends HealthStatus {
     constructor(){       
         super();
         this.perfil = "Saudável";
@@ -19,7 +20,7 @@ class Saudavel extends PerfilSaude {
     }
 }
 
-class DoenteCronico extends PerfilSaude {
+class DoenteCronico extends HealthStatus {
     constructor(){       
         super();
         this.perfil = "Doente Crônico";
@@ -31,7 +32,7 @@ class DoenteCronico extends PerfilSaude {
 
 }
 
-class DoenteGrave extends PerfilSaude {
+class DoenteGrave extends HealthStatus {
     constructor(){       
         super();
         this.perfil = "Portador de doença grave";
