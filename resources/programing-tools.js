@@ -4,6 +4,11 @@ function assert(condition, message) {
     }
 }
 
+function isintance(obj, type) {
+    if ( obj.type.indexOf(type) >= 0 ) { return true } else { return false}
+}
+
+
 function exaust_generator_list(l, prefix="", sufix="") {
     output = ""
     for (idx in l) {

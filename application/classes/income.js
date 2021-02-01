@@ -7,7 +7,6 @@ class IncomeBlueprint {
     }
 }
 
-
 class ServidorEfetivo extends IncomeBlueprint {
     constructor(){       
         super();

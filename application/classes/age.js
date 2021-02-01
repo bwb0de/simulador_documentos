@@ -1,16 +1,5 @@
 import { make_generator } from '../../resources/programing-tools.js';
 
-class AgeStatus {
-    constructor(dn) { 
-        
-        this.doc = []
-    
-    }
-    return_docs() {
-        return make_generator(this.doc)
-    }
-    
-}
 
 class Pessoa {
     constructor(nome, dn, perfil_renda, perfil_saude) {

@@ -1,5 +1,7 @@
 import { MAX_SAUDE, MID_SAUDE, MIN_SAUDE } from "./basic_values.js";
 import { ServidorEfetivo, Aposentado, Rentista, ServidorTemporario, Microempreendedor, ProdutorRural, AgricultorFamiliar, TrabalhadorFormal, PensaoAlimenticiaFormal, Estagio, BolsaAcademica, BolsaAcademicaPOS, BolsaAssistenciaEstudantil, PensaoAlimenticiaInformal, AuxilioAssistenciaSocial, TrabalhadorInformal, Poupanca, INSS, AjudaDeTerceiros, SeguroDesemprego, SemRendaLaboral } from "../classes/income.js";
+import { Saudavel, DoenteCronico, DoenteGrave, Deficiente } from "../classes/health.js"
+import { Quitado, CEU, Financiamento, Cedido, Alugado, AlugadoInformalmente, MorandoDeFavor, Assentamento, Quilombo, Aldeia, Irregular, SubJudice, SemMoradia, OutraSituacaoMoradia } from "../classes/habitation.js";
 
 const translator_tipo_renda = {
     tipo_vinculo_00: [22, ServidorEfetivo],
@@ -28,10 +30,10 @@ const translator_tipo_renda = {
 }
 
 const translator_saude = {
-    saude_00: [MAX_SAUDE, "Sem agravo"],
-    saude_01: [MID_SAUDE, "Doença crônica"],
-    saude_02: [MIN_SAUDE, "Doença grave"],
-    saude_03: [MIN_SAUDE, "Deficiência"]
+    saude_00: [MAX_SAUDE, Saudavel],
+    saude_01: [MID_SAUDE, DoenteCronico],
+    saude_02: [MIN_SAUDE, DoenteGrave],
+    saude_03: [MIN_SAUDE, Deficiente]
 }
 
 const translator_estrangeiro = {
@@ -73,19 +75,20 @@ const translator_pais_falecidos = {
 }
 
 const translator_tipo_moradia = {
-    tipo_imovel_00: [0, "Próprio quitado"],
-    tipo_imovel_01: [0, "Casa do Estudante Universitário"],
-    tipo_imovel_02: [0, "Própria em aquisição"],
-    tipo_imovel_03: [0, "Cedido"],
-    tipo_imovel_04: [0, "Alugado/república/pensionato"],
-    tipo_imovel_05: [0, "De favor (morando com pessoas que não fazem parte do grupo familiar)"],
-    tipo_imovel_06: [0, "Assentamento"],
-    tipo_imovel_07: [0, "Comunidade quilombola"],
-    tipo_imovel_12: [0, "Aldeia indígena"],
-    tipo_imovel_08: [0, "Ocupação irregular"],
-    tipo_imovel_09: [0, "Moradia com risco de remoção sub judice"],
-    tipo_imovel_10: [0, "Sem moradia, em situação de rua"],
-    tipo_imovel_11: [0, "Outra situação de moradia"]
+    tipo_imovel_00: [0, Quitado],
+    tipo_imovel_01: [0, CEU],
+    tipo_imovel_02: [0, Financiamento],
+    tipo_imovel_03: [0, Cedido],
+    tipo_imovel_04: [0, Alugado],
+    tipo_imovel_13: [0, AlugadoInformalmente],
+    tipo_imovel_05: [0, MorandoDeFavor],
+    tipo_imovel_06: [0, Assentamento],
+    tipo_imovel_07: [0, Quilombo],
+    tipo_imovel_12: [0, Aldeia],
+    tipo_imovel_08: [0, Irregular],
+    tipo_imovel_09: [0, SubJudice],
+    tipo_imovel_10: [0, SemMoradia],
+    tipo_imovel_11: [0, OutraSituacaoMoradia]
 }
 
 const translator_docs = {

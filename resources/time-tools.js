@@ -1,5 +1,3 @@
-//https://flaviocopes.com/momentjs/
-
 // Deve ser importada diretamente na página após importação de moment.min.js
 //   · Moment JS alternativamente pode ser importado via: <script src="https://unpkg.com/moment" />
 
@@ -39,9 +37,9 @@ function days_to(br_date) {
     }
 }
 
-
 function validate_date(br_date) {
     ISO_date = br_date_string_to_ISO(br_date)
     return moment(ISO_date).isValid()
 };
 
+export { br_date_string_to_ISO, years_since, days_to, validate_date };

@@ -3,9 +3,11 @@ import { translator_tipo_renda, translator_saude, translator_estrangeiro, transl
 import { resultant_vector, cosseno_vector, media } from "./resources/math-tools.js";
 import { exaust_generator_list } from "./resources/programing-tools.js";
 import { clear_fields, clear_init_fields, clear_moradia_fields, check_form } from "./application/handlers/forms.js";
-import { check_foreign, check_deficient, check_alimony, check_if_any_deceased_parent } from "./application/rules/app-forms.js"
+import { check_foreign, check_deficient, check_alimony, check_if_any_deceased_parent } from "./application/rules/student-only-doc.js"
+import { Student, StudentFamily } from "./application/classes/person.js"
 
 family_members = [];
+let studant;
 
 doc_info_estudante = []
 doc_info_moradia = {}
@@ -41,33 +43,17 @@ function push_and_show_form_moradia() {
     pais_falecidos = get_selected_op('pais_falecidos', translator_pais_falecidos).split(';')[0];
     pensao_alimenticia = get_selected_op('pa', translator_pa).split(';')[0];
 
-    doc_info_estudante = check_foreign(doc_info_estudante, estrangeiro);
+    studant = new Student(estrangeiro, com_deficiencia, pais_separados, mais_de_24, pensao_alimenticia, pais_falecidos)
+
+    /*doc_info_estudante = check_foreign(doc_info_estudante, estrangeiro);
     doc_info_estudante = check_deficient(doc_info_estudante, com_deficiencia);
     doc_info_estudante = check_alimony(doc_info_estudante, pensao_alimenticia, pais_separados, pais_falecidos, mais_de_24);
-    doc_info_estudante = check_if_any_deceased_parent(doc_info_estudante, pais_falecidos);
+    doc_info_estudante = check_if_any_deceased_parent(doc_info_estudante, pais_falecidos);*/
     
+    family_members.push(studant)
+
     document.getElementById('form_estudante').remove();
     document.getElementById('form_moradia').style.visibility = 'visible';
-}
-
-function show_form_integrantes_ex() {
-    document.getElementById('form_moradia').remove();
-    document.getElementById('form_integrantes_explicacao').style.visibility = 'visible';
-}
-
-function show_form_integrantes() {
-    document.getElementById('form_integrantes_explicacao').remove()
-    document.getElementById('form_integrantes').style.visibility = 'visible';
-}
-
-
-function show_simulation_result() {
-    document.getElementById('form_integrantes').remove();
-
-    populate_result();
-
-    document.getElementById('simulation_result').style.visibility = 'visible';
-    document.getElementById('info').remove();
 }
 
 
@@ -130,6 +116,30 @@ function push_moradia() {
     alert("Informação de moradia inserida...")
 
 }
+
+
+
+
+function show_form_integrantes_ex() {
+    document.getElementById('form_moradia').remove();
+    document.getElementById('form_integrantes_explicacao').style.visibility = 'visible';
+}
+
+function show_form_integrantes() {
+    document.getElementById('form_integrantes_explicacao').remove()
+    document.getElementById('form_integrantes').style.visibility = 'visible';
+}
+
+
+function show_simulation_result() {
+    document.getElementById('form_integrantes').remove();
+
+    populate_result();
+
+    document.getElementById('simulation_result').style.visibility = 'visible';
+    document.getElementById('info').remove();
+}
+
 
 
 function push_family_member() {

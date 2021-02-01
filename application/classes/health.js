@@ -1,45 +1,42 @@
 import { make_generator } from '../../resources/programing-tools.js';
 
-class HealthStatus {
-    constructor() {}
-
-    print_info_card(doc_list){
-        doc_list.forEach(element => { console.log("<li>"+element)});
+class HealthBlueprint {
+    constructor(){ this.doc = []}
+    return_docs(){
+        return make_generator(this.doc);
     }
 }
 
-class Saudavel extends HealthStatus {
+class Saudavel extends HealthBlueprint {
     constructor(){       
         super();
         this.perfil = "Saudável";
         this.doc = []
     }
-
-    print_info() {
-        this.print_info_card(this.doc)
-    }
 }
 
-class DoenteCronico extends HealthStatus {
+class DoenteCronico extends HealthBlueprint {
     constructor(){       
         super();
         this.perfil = "Doente Crônico";
         this.doc = ["Relatório ou laudo médico com CID ou carteirinha do posto de saúde"]
     }
-    print_info() {
-        this.print_info_card(this.doc)
-    }
-
 }
 
-class DoenteGrave extends HealthStatus {
+class DoenteGrave extends HealthBlueprint {
     constructor(){       
         super();
         this.perfil = "Portador de doença grave";
         this.doc = ["Relatório ou laudo médico com CID"]
     }
-    print_info() {
-        this.print_info_card(this.doc)
-    }
-
 }
+
+class Deficiente extends HealthBlueprint {
+    constructor(){       
+        super();
+        this.perfil = "Deficiente";
+        this.doc = ["Relatório ou laudo médico com CID ou documento oficial de identificação para pessoa com deficiência"]
+    }
+}
+
+export { Saudavel, DoenteCronico, DoenteGrave, Deficiente };
